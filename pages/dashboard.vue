@@ -6,22 +6,22 @@
 
 <script>
 export default {
-  authenticated: true,
+  middleware: 'auth',
   data() {
     return {
       fields: ['userId', 'title', 'body'],
-      posts: []
+      posts: [],
     }
   },
   async fetch() {
     this.$axios
       .$get('https://jsonplaceholder.typicode.com/posts')
-      .then(res => {
-        this.posts = res       
+      .then((res) => {
+        this.posts = res
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err)
       })
-  }
+  },
 }
 </script>

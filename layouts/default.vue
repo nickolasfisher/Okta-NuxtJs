@@ -35,18 +35,20 @@
 }
 </style>
 
+
 <script>
 export default {
+ 
   data() {
     return {
-      loggedIn: this.$store.state.oauth.accessToken,
+      loggedIn: this.$auth.$state.loggedIn,
       year: new Date().getFullYear()
     }
   },
   methods: {
-    logout() {
-      const redirectUrl = '/'
-      this.$logout(redirectUrl)
+    logout() {      
+      this.$auth.logout();
+      window.location = '/';
     }
   }
 }

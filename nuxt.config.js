@@ -46,7 +46,7 @@ export default {
     '@nuxtjs/axios',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
-    ['nuxt-oauth']
+    '@nuxtjs/auth'
   ],
   /*
   ** Axios module configuration
@@ -54,13 +54,20 @@ export default {
   */
   axios: {
   },
-  oauth: {
-    oauthHost: process.env.OKTA_DOMAIN,
-    oauthClientID: process.env.OKTA_CLIENT_ID,
-    sessionName: 'TODOSession',
-    secretKey: process.env.SESSION_SECRET_KEY,
-    oauthClientSecret: process.env.OKTA_CLIENT_SECRET,
-    scopes: ['openid']
+
+  auth: {
+    strategies: {
+      okta: {
+        _scheme: 'oauth2',
+        authorization_endpoint: process.env.OKTA_DOMAIN + '/authorize',
+        scope: ['openid', 'profile', 'email'],
+        response_type: 'id_token',
+        token_type: 'Bearer',
+        client_id: process.env.OKTA_CLIENT_ID,
+        client_secret: process.env.OKTA_CLIENT_SECRET,
+        token_key: 'id_token'
+      }
+    }
   },
   /*
   ** Build configuration
